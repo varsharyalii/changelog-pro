@@ -1,25 +1,120 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="font-sans">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="author" content="{{AUTHOR}}">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Version tag hover tooltip */
+    .version-tag {
+      position: relative;
+    }
+    
+    .version-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #9ca3af;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      margin-bottom: 8px;
+      font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .version-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #9ca3af;
+    }
+    
+    .version-tag:hover .version-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .copy-btn {
+      background: #374151;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .copy-btn:hover {
+      background: #4b5563;
+    }
+    
+    .copy-btn.copied {
+      background: #10b981;
+      color: white;
+    }
+  </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen">
-  <div class="max-w-4xl mx-auto py-12 px-6">
-    <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">Changelog</h1>
-      <p class="text-xl text-gray-600 mb-2">Find all the new features, improvements and bugfixes here.</p>
-      <p class="text-sm text-gray-500">Hover over version numbers to see installation commands</p>
-    </div>
+<body>
+  <section class="w-full max-w-5xl px-2 py-6 md:py-12 mx-auto text-center">
+    <h1 class="text-3xl font-bold">
+      Changelog
+    </h1>
 
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+    <p class="mt-3 text-xl text-gray-600 md:text-2xl">
+      Find all the new features, improvements and bugfixes here.
+    </p>
+  </section>
+
+  <section class="px-2 py-12 md:mt-12 bg-gradient-to-b from-gray-50 to-white">
+    <ul class="relative w-full max-w-5xl mx-auto">
+      <span class="absolute bottom-0 left-0 hidden w-1 rounded bg-gray-200/60 top-3 translate-x-2 md:block" aria-hidden="true"></span>
+
       <!-- START_RELEASES -->
       {{CHANGELOG_CONTENT}}
       <!-- END_RELEASES -->
-    </div>
-  </div>
+    </ul>
+  </section>
+
+  <script>
+    function copyToClipboard(text, buttonElement) {
+      navigator.clipboard.writeText(text).then(function() {
+        // Show visual feedback
+        buttonElement.textContent = 'copied!';
+        buttonElement.classList.add('copied');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          buttonElement.textContent = 'copy';
+          buttonElement.classList.remove('copied');
+        }, 2000);
+      }, function(err) {
+        console.error('Could not copy text: ', err);
+        // Show error feedback
+        buttonElement.textContent = 'error';
+        setTimeout(() => {
+          buttonElement.textContent = 'copy';
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html> 
