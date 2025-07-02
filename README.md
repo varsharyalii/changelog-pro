@@ -1,328 +1,223 @@
 # Changelog Pro
 
-[![npm version](https://badge.fury.io/js/changelog-pro.svg)](https://badge.fury.io/js/changelog-pro)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A professional changelog generator that converts markdown changelogs into beautiful HTML with live preview capabilities.
 
-Professional changelog generator and processor with badge support, HTML rendering, and CLI tools. Transform your markdown changelogs into beautiful, styled HTML with advanced features like badge parsing, version categorization, and professional templates.
+## Overview
 
-## ✨ Features
+Changelog Pro is a command-line tool designed to help developers create and maintain beautiful, professional changelogs. It processes standard markdown changelog files and generates clean HTML output with customizable themes and real-time preview functionality.
 
-- 🎨 **Professional HTML Generation** - Convert markdown to beautiful, styled HTML
-- 🏷️ **Badge Support** - Built-in support for `[new]`, `[bugfix]`, `[improvement]`, `[breaking]` and more
-- 📦 **Dual API** - Use as CLI tool or programmatic library
-- 🎯 **Clean Architecture** - Modular, testable, and maintainable codebase
-- 📊 **Statistics** - Get insights about your changelog
-- 🛠️ **Customizable** - Custom templates and configurations
-- 🚀 **Modern** - ES6+, Professional error handling, TypeScript-ready
+## Features
 
-## 🚀 Quick Start
+- **Zero Configuration**: Works out of the box with sensible defaults
+- **Live Preview**: Development server with auto-refresh for instant feedback
+- **Professional Themes**: Multiple built-in themes for different project styles
+- **Project Initialization**: Smart setup that detects your project structure
+- **Statistics**: Detailed analytics about your changelog content
+- **Modern Architecture**: Built with performance and maintainability in mind
 
-### Installation
+## Installation
+
+### Global Installation (Recommended)
 
 ```bash
-# Install globally for CLI usage
 npm install -g changelog-pro
-
-# Or install locally in your project
-npm install changelog-pro
 ```
 
-### CLI Usage
+### Local Installation
 
 ```bash
-# Generate HTML from CHANGELOG.md (creates changelog.html)
+npm install --save-dev changelog-pro
+```
+
+## Quick Start
+
+### Initialize a New Changelog
+
+```bash
+changelog-pro init
+```
+
+This creates a sample `CHANGELOG.md` file with proper formatting and generates an initial HTML output.
+
+### Generate HTML Output
+
+```bash
 changelog-pro
-
-# Custom input/output files
-changelog-pro generate -i CHANGES.md -o docs/changelog.html
-
-# Initialize with sample files
-changelog-pro generate --init
-
-# Get statistics about your changelog
-changelog-pro stats
-
-# Show help
-changelog-pro help
 ```
 
-### Programmatic Usage
+By default, this processes `CHANGELOG.md` and creates `changelog.html` in your project root.
 
-```javascript
-const { ChangelogPro } = require('changelog-pro');
+### Start Live Preview
 
-// Quick generation
-const result = await ChangelogPro.generate({
-  config: {
-    changelogFile: 'CHANGELOG.md',
-    htmlFile: 'changelog.html'
-  }
-});
-
-if (result.success) {
-  console.log(`Generated ${result.stats.totalReleases} releases`);
-}
+```bash
+changelog-pro preview
 ```
 
-## 📖 Documentation
+Opens a development server at `http://localhost:3000` with automatic reload when you edit your changelog.
 
-### Badge Syntax
+## Command Reference
 
-Changelog Pro supports various badge types that get converted to styled HTML badges:
+### `changelog-pro` (default)
 
-#### Change Types
-- `[new]` - New features (green)
-- `[improvement]` - Enhancements (blue)
-- `[bugfix]` - Bug fixes (red)
-- `[breaking]` - Breaking changes (red)
+Generates HTML from your markdown changelog.
 
-#### Release Types
-- `[beta]` - Beta releases (purple)
-- `[alpha]` - Alpha releases (red)
-- `[lts]` - LTS releases (yellow)
+```bash
+changelog-pro [options]
+```
 
-#### Status Types
-- `[warning]` - Warnings (yellow)
-- `[unstable]` - Unstable features (orange)
-- `[deprecated]` - Deprecated features (gray)
+**Options:**
+- `--input, -i <file>`: Source markdown file (default: `CHANGELOG.md`)
+- `--output, -o <file>`: Output HTML file (default: `changelog.html`)
+- `--theme <name>`: Theme to use for HTML generation
 
-### Example Changelog
+### `changelog-pro init`
+
+Creates a new changelog with sample content based on your project.
+
+```bash
+changelog-pro init [options]
+```
+
+**Options:**
+- `--force`: Overwrite existing changelog file
+
+### `changelog-pro preview`
+
+Starts a development server for live editing.
+
+```bash
+changelog-pro preview [options]
+```
+
+**Options:**
+- `--port, -p <number>`: Server port (default: `3000`)
+- `--input, -i <file>`: Source markdown file to watch
+
+### `changelog-pro stats`
+
+Displays statistics about your changelog.
+
+```bash
+changelog-pro stats [options]
+```
+
+**Options:**
+- `--input, -i <file>`: Source markdown file to analyze
+
+## Changelog Format
+
+Changelog Pro supports the [Keep a Changelog](https://keepachangelog.com/) format. Here's an example structure:
 
 ```markdown
 # Changelog
 
-## [2.1.0] - 2024-01-15
+All notable changes to this project will be documented in this file.
+
+## [1.2.0] - 2025-01-02
 
 ### Added
-- [new] Advanced template system with custom themes
-- [new] Real-time preview functionality
+- New feature for user authentication
+- Support for multiple output formats
 
-### Changed  
-- [improvement] Enhanced performance by 40%
-- [improvement] Better error messages and debugging
+### Changed
+- Improved error handling throughout the application
+- Updated dependencies to latest versions
 
 ### Fixed
-- [bugfix] Fixed memory leak in large changelogs
-- [bugfix] Resolved template parsing edge cases
+- Resolved issue with file parsing on Windows
+- Fixed memory leak in preview server
 
-### Breaking Changes
-- [breaking] API restructure - see migration guide
-
-## [2.0.0] - 2024-01-01
+## [1.1.0] - 2024-12-15
 
 ### Added
-- [new] Complete rewrite with TypeScript support
-- [lts] Long-term support version
+- Initial release functionality
 ```
 
-### CLI Commands
+## Themes
 
-#### `generate` (default)
-Generate HTML from markdown changelog.
+Changelog Pro includes several built-in themes:
+
+- **default**: Clean, minimal design suitable for most projects
+- **professional**: Corporate-friendly styling with enhanced typography
+- **modern**: Contemporary design with subtle animations
+
+## Configuration
+
+Create a `changelog-pro.config.js` file in your project root for custom settings:
+
+```javascript
+module.exports = {
+  input: 'CHANGELOG.md',
+  output: 'docs/changelog.html',
+  theme: 'professional',
+  title: 'My Project Changelog',
+  description: 'Track all changes and improvements'
+};
+```
+
+## API Usage
+
+You can also use Changelog Pro programmatically:
+
+```javascript
+const { ChangelogService } = require('changelog-pro');
+
+const service = new ChangelogService();
+const result = await service.generateChangelog('CHANGELOG.md', 'output.html');
+console.log(`Generated changelog with ${result.releases.length} releases`);
+```
+
+## Development
+
+### Prerequisites
+
+- Node.js 14.0 or higher
+- npm or yarn
+
+### Setup
 
 ```bash
-changelog-pro generate [options]
-
-Options:
-  -i, --input <file>     Input markdown file (default: CHANGELOG.md)
-  -o, --output <file>    Output HTML file (default: changelog.html)
-  --init                 Create default files if missing
-  -v, --verbose          Show detailed error information
+git clone https://github.com/varsharyalii/changelog-pro.git
+cd changelog-pro
+npm install
 ```
 
-#### `stats`
-Show changelog statistics.
+### Running Tests
 
 ```bash
-changelog-pro stats [options]
-
-Options:
-  -i, --input <file>     Input markdown file (default: CHANGELOG.md)
-```
-
-### Programmatic API
-
-#### Basic Usage
-
-```javascript
-const { ChangelogService, generate, getStats } = require('changelog-pro');
-
-// Using convenience functions
-const result = await generate({
-  config: {
-    changelogFile: 'CHANGELOG.md',
-    htmlFile: 'public/changelog.html'
-  }
-});
-
-const stats = await getStats({
-  config: { changelogFile: 'CHANGELOG.md' }
-});
-```
-
-#### Advanced Usage
-
-```javascript
-const { 
-  ChangelogService,
-  ReleaseParser,
-  HtmlRenderer,
-  TagGenerator 
-} = require('changelog-pro');
-
-// Custom configuration
-const service = new ChangelogService({
-  config: {
-    changelogFile: 'CHANGES.md',
-    htmlFile: 'docs/releases.html'
-  },
-  // Custom components (dependency injection)
-  parser: new ReleaseParser(),
-  htmlRenderer: new HtmlRenderer(),
-  tagGenerator: new TagGenerator()
-});
-
-// Process changelog
-const result = await service.processChangelog();
-
-// Get statistics
-const stats = await service.getStatistics();
-
-// Validate configuration
-const errors = service.validateConfiguration();
-```
-
-#### API Response Format
-
-```javascript
-// processChangelog() returns:
-{
-  success: boolean,
-  message: string,
-  stats: {
-    totalReleases: number,
-    changelogFile: string,
-    htmlFile: string
-  }
-}
-
-// getStatistics() returns:
-{
-  totalReleases: number,
-  sectionCounts: {
-    added: number,
-    changed: number,
-    fixed: number,
-    // ... other sections
-  },
-  latestVersion: string,
-  oldestVersion: string
-}
-```
-
-## 🎨 Customization
-
-### Custom Templates
-
-Create your own HTML template by copying `templates/default.html` and modifying it:
-
-```javascript
-const service = new ChangelogService({
-  config: {
-    changelogFile: 'CHANGELOG.md',
-    htmlFile: 'changelog.html',
-    templateFile: 'my-template.html' // Custom template
-  }
-});
-```
-
-### Template Variables
-
-Templates support these variables:
-- `{{TITLE}}` - Project title
-- `{{AUTHOR}}` - Author name
-- `{{CHANGELOG_CONTENT}}` - Rendered changelog content
-- `{{GENERATED_DATE}}` - ISO date string
-- `{{GENERATED_DATE_FORMATTED}}` - Formatted date
-
-### Custom Badge Styles
-
-Override badge styles by modifying the CSS in your template:
-
-```css
-.badge-custom { 
-  @apply text-purple-700 bg-gradient-to-br from-purple-200 to-purple-100; 
-}
-```
-
-## 🏗️ Architecture
-
-Changelog Pro follows clean architecture principles:
-
-```
-lib/
-├── changelog-service.js     # Main orchestration service
-├── release-parser.js        # Markdown parsing logic
-├── description-formatter.js # Text formatting utilities  
-├── tag-generator.js         # Badge/tag generation
-├── html-renderer.js         # HTML template rendering
-├── file-handler.js          # File I/O operations
-└── tokenizer.js            # Text tokenization utilities
-```
-
-### Core Components
-
-- **ChangelogService** - Main service orchestrating the pipeline
-- **ReleaseParser** - Parses markdown into structured release data
-- **HtmlRenderer** - Renders HTML from templates and data
-- **TagGenerator** - Generates HTML badges from markdown badges
-- **DescriptionFormatter** - Formats and cleans text content
-- **FileHandler** - Handles file reading/writing operations
-
-## 🧪 Testing
-
-```bash
-# Run tests
 npm test
-
-# Test CLI commands
-changelog-pro generate --init
-changelog-pro stats
 ```
 
-## 📝 Examples
+### Linting
 
-Check out the `examples/` directory for complete usage examples:
+```bash
+npm run lint
+npm run lint:fix  # Auto-fix issues
+```
 
-- **Basic Usage** (`examples/basic/`) - Simple changelog generation
-- **Advanced Usage** (`examples/advanced/`) - Custom templates and configuration
-- **Integration** (`examples/integration/`) - Using in build pipelines
+## Contributing
 
-## 🤝 Contributing
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- Code of conduct
+- Development workflow
+- Pull request process
+- Issue reporting guidelines
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 🔗 Links
+## Changelog
 
-- [GitHub Repository](https://github.com/changelog-pro/changelog-pro)
-- [npm Package](https://www.npmjs.com/package/changelog-pro)
-- [Issue Tracker](https://github.com/changelog-pro/changelog-pro/issues)
-- [Documentation](https://github.com/changelog-pro/changelog-pro#readme)
+See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes to this project.
 
-## 🙏 Acknowledgments
+## Support
 
-- Inspired by clean architecture principles
-- Built with modern JavaScript and Node.js
-- Styled with Tailwind CSS for beautiful HTML output
+- **Documentation**: Full documentation available in the [docs](docs/) directory
+- **Issues**: Report bugs and request features on [GitHub Issues](https://github.com/varsharyalii/changelog-pro/issues)
+- **Discussions**: Join the community on [GitHub Discussions](https://github.com/varsharyalii/changelog-pro/discussions)
 
 ---
 
-Made with ❤️ by the Changelog Pro team 
+Built with care by developers, for developers. 
