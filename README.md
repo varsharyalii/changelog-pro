@@ -2,7 +2,7 @@
 
 A professional changelog generator that converts markdown changelogs into beautiful HTML with live preview capabilities.
 
-![Changelog Pro Preview](https://github.com/varsharyalii/changelog-pro/raw/main/preview.png)
+![Changelog Pro Preview](https://github.com/varsharyalii/changelog-pro/raw/main/changelog-preview.jpg)
 
 ## Installation
 
