@@ -4,7 +4,7 @@
   "description": "Professional changelog generator and processor with badge support, HTML rendering, and CLI tools",
   "main": "index.js",
   "bin": {
-    "changelog-pro": "./bin/changelog-pro"
+    "changelog-pro": "bin/changelog-pro"
   },
   "scripts": {
     "test": "jest",
@@ -35,7 +35,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/varsha.ryali/changelog-pro.git"
+    "url": "git+https://github.com/varsha.ryali/changelog-pro.git"
   },
   "bugs": {
     "url": "https://github.com/varsha.ryali/changelog-pro/issues"

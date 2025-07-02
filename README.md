@@ -1,16 +1,23 @@
 # Changelog Pro
 
+[![npm version](https://badge.fury.io/js/changelog-pro.svg)](https://www.npmjs.com/package/changelog-pro)
+[![npm downloads](https://img.shields.io/npm/dm/changelog-pro.svg)](https://www.npmjs.com/package/changelog-pro)
+[![GitHub Stars](https://img.shields.io/github/stars/varsharyalii/changelog-pro.svg)](https://github.com/varsharyalii/changelog-pro/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A professional changelog generator that converts markdown changelogs into beautiful HTML with live preview capabilities.
 
 ![Changelog Pro Preview](https://github.com/varsharyalii/changelog-pro/raw/main/changelog-preview.jpg)
 
-## Installation
+## 📦 Installation
 
 ```bash
 npm install -g changelog-pro  # Install globally for CLI usage
 ```
 
-## Quick Start
+**NPM Package:** https://www.npmjs.com/package/changelog-pro
+
+## 🚀 Quick Start
 
 ```bash
 changelog-pro init              # Create sample CHANGELOG.md
