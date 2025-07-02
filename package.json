@@ -1,0 +1,99 @@
+{
+  "name": "changelog-pro",
+  "version": "1.0.0",
+  "description": "Professional changelog generator and processor with badge support, HTML rendering, and CLI tools",
+  "main": "index.js",
+  "bin": {
+    "changelog-pro": "./bin/changelog-pro"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build": "node bin/changelog-pro generate",
+    "lint": "eslint bin/ lib/ test/",
+    "lint:fix": "eslint bin/ lib/ test/ --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "npm run lint && npm test",
+    "dev": "node bin/changelog-pro preview",
+    "start": "node bin/changelog-pro"
+  },
+  "keywords": [
+    "changelog",
+    "markdown",
+    "html",
+    "generator",
+    "cli",
+    "documentation",
+    "release",
+    "notes",
+    "badge",
+    "template"
+  ],
+  "author": "Changelog Pro Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/changelog-pro/changelog-pro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/changelog-pro/changelog-pro/issues"
+  },
+  "homepage": "https://github.com/changelog-pro/changelog-pro#readme",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "files": [
+    "lib/",
+    "bin/",
+    "templates/",
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "commonjs",
+  "dependencies": {
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "bin/**/*.js",
+      "!**/*.test.js",
+      "!**/node_modules/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es2022": true,
+      "jest": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2022
+    },
+    "rules": {
+      "no-console": "off",
+      "no-process-exit": "off"
+    }
+  }
+}

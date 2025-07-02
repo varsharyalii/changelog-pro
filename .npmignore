@@ -1,0 +1,87 @@
+# Source and development files
+*.md
+!README.md
+src/
+.babelrc
+.eslintrc*
+.prettierrc*
+rollup.config.js
+webpack.config.js
+
+# Test files
+test/
+tests/
+spec/
+__tests__/
+*.test.js
+*.spec.js
+coverage/
+.nyc_output
+
+# Documentation
+docs/
+examples/
+.github/
+
+# Development dependencies
+.env
+.env.*
+
+# Build tools
+Gruntfile.js
+gulpfile.js
+Makefile
+
+# CI/CD
+.travis.yml
+.circleci/
+.github/workflows/
+azure-pipelines.yml
+appveyor.yml
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Development output
+dist/
+build/
+out/
+
+# Cache directories
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Local development
+local/
+dev/
+sandbox/ 

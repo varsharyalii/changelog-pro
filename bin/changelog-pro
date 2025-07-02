@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+
+/**
+ * Changelog Pro CLI - Entry Point
+ * Professional thin CLI that delegates to command modules
+ */
+
+const { program } = require('commander');
+const pkg = require('../package.json');
+
+// Import command modules
+const generateCommand = require('./cli/commands/generate');
+const initCommand = require('./cli/commands/init');
+const previewCommand = require('./cli/commands/preview');
+const statsCommand = require('./cli/commands/stats');
+
+// Configure main program
+program
+  .name('changelog-pro')
+  .description('Professional changelog generator and processor')
+  .version(pkg.version);
+
+// Register commands
+program
+  .command('generate')
+  .description('Generate HTML from markdown changelog (default)')
+  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
+  .option('-o, --output <file>', 'Output HTML file', 'changelog.html')
+  .option('--init', 'Create default files if missing')
+  .option('-v, --verbose', 'Show detailed output')
+  .action(generateCommand);
+
+program
+  .command('init')
+  .description('Initialize project with sample changelog')
+  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
+  .option('-o, --output <file>', 'Output HTML file', 'changelog.html')
+  .option('--force', 'Overwrite existing files')
+  .action(initCommand);
+
+program
+  .command('preview')
+  .description('Start live preview server')
+  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
+  .option('-p, --port <number>', 'Server port', '3000')
+  .action(previewCommand);
+
+program
+  .command('stats')
+  .description('Show changelog statistics')
+  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
+  .action(statsCommand);
+
+// Set default command to generate
+program
+  .action(() => {
+    // If no command specified, run generate
+    generateCommand({ input: 'CHANGELOG.md', output: 'changelog.html' });
+  });
+
+// Global error handler
+process.on('unhandledRejection', (error) => {
+  console.error('💥 Unhandled error:', error.message);
+  if (process.env.DEBUG) {
+    console.error(error.stack);
+  }
+  process.exit(1);
+});
+
+// Parse and execute
+program.parse(); 

@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en" class="font-sans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Chatbot MFE - Changelog</title>
+  <meta name="description" content="Changelog for Agent Chatbot MFE packages">
+  <meta name="author" content="Agent Chatbot Team">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .version-badge {
+      position: relative;
+      cursor: pointer;
+    }
+    .tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1000;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-transform: none;
+    }
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1f2937;
+    }
+    .version-badge:hover .tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+    .copy-btn {
+      margin-left: 8px;
+      padding: 2px 6px;
+      background: #374151;
+      border-radius: 4px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .copy-btn:hover {
+      background: #4b5563;
+    }
+    .copy-btn.copied {
+      background: #16a34a;
+      color: white;
+    }
+    
+    /* Simplified Tag System - Context Specific */
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 6px;
+    }
+    
+    /* Release Types */
+    .tag-breaking { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+    .tag-feature { background: #dbeafe; color: #2563eb; }
+    .tag-fix { background: #fef3c7; color: #d97706; border: 1px solid #f59e0b; }
+    .tag-bugfix { background: #f3f4f6; color: #374151; }
+    .tag-security { background: #fef3c7; color: #d97706; }
+    .tag-deps { background: #f3e8ff; color: #7c3aed; }
+    
+    /* Status Types */
+    .tag-stable { background: #dcfce7; color: #16a34a; font-weight: 700; }
+    .tag-beta { background: #fed7aa; color: #ea580c; }
+    
+    /* Version Numbers */
+    .tag-version { 
+      background: #1f2937; 
+      color: white; 
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <section class="w-full max-w-5xl px-2 py-6 md:py-12 mx-auto text-center">
+    <h1 class="text-3xl font-bold">
+      Changelog
+    </h1>
+    <p class="mt-3 text-xl text-gray-600 md:text-2xl">
+      Find all the new features, improvements and bugfixes here.
+    </p>
+    <p class="mt-2 text-sm text-gray-500">
+      Hover over version numbers to see installation commands
+    </p>
+  </section>
+  <section class="px-2 py-12 md:mt-12 bg-gradient-to-b from-gray-50 to-white">
+    <ul class="relative w-full max-w-5xl mx-auto">
+      <span class="absolute bottom-0 left-0 hidden w-1 rounded bg-gray-200/60 top-3 translate-x-2 md:block" aria-hidden="true"></span>
+      
+      <!-- START_RELEASES -->
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-07-04" class="text-xl font-semibold tracking-tight text-gray-800">July 4, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-fix">Fix</span>
+            <span class="tag tag-breaking">Breaking</span>
+            <span class="tag tag-security">Security</span>
+            <span class="tag tag-feature">Update</span>
+            <span class="version-badge tag tag-version">
+      v0.16.0
+      <div class="tooltip">
+        npm install @agentchat/core@0.16.0<br>
+        npm install @agentchat/angular@0.16.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@0.16.0 @agentchat/angular@0.16.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • Breaking changes including **config**: Renamed `apiEndpoint` to `baseUrl` in configuration<br>• 3 features including **chat**: Real-time message notifications with sound alerts<br>• 2 fixes including **auth**: Fixed token refresh causing infinite loop<br>• 2 improvements including **performance**: Reduced bundle size by 40% with tree shaking<br>• 2 security including **auth**: Implemented rate limiting for login attempts
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-07-03" class="text-xl font-semibold tracking-tight text-gray-800">July 3, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-fix">Fix</span>
+            <span class="tag tag-security">Security</span>
+            <span class="version-badge tag tag-version">
+      v0.15.2
+      <div class="tooltip">
+        npm install @agentchat/core@0.15.2<br>
+        npm install @agentchat/angular@0.15.2
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@0.15.2 @agentchat/angular@0.15.2', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 2 fixes including **deployment**: Fixed production build failing on missing env vars<br>• Security: **deps**: Updated vulnerable dependencies to latest versions
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-07-03" class="text-xl font-semibold tracking-tight text-gray-800">July 3, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-breaking">Breaking</span>
+            <span class="version-badge tag tag-version">
+      v0.15.1
+      <div class="tooltip">
+        npm install @agentchat/core@0.15.1<br>
+        npm install @agentchat/angular@0.15.1
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@0.15.1 @agentchat/angular@0.15.1', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • Breaking: test a random breaking change
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-07-02" class="text-xl font-semibold tracking-tight text-gray-800">July 2, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-fix">Fix</span>
+            <span class="version-badge tag tag-version">
+      v0.14.0
+      <div class="tooltip">
+        npm install @agentchat/core@0.14.0<br>
+        npm install @agentchat/angular@0.14.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@0.14.0 @agentchat/angular@0.14.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 2 features including enhance changelog sync system with smart content extraction<br>• Fix: **versioning:** update root package.json to 0.12.1 to match packages
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-07-02" class="text-xl font-semibold tracking-tight text-gray-800">July 2, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-fix">Fix</span>
+            <span class="version-badge tag tag-version">
+      v0.13.0
+      <div class="tooltip">
+        npm install @agentchat/core@0.13.0<br>
+        npm install @agentchat/angular@0.13.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@0.13.0 @agentchat/angular@0.13.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • New: enhance changelog sync system with smart content extraction<br>• Fix: **versioning:** update root package.json to 0.12.1 to match packages
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-03-07" class="text-xl font-semibold tracking-tight text-gray-800">March 7, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-breaking">Breaking</span>
+            <span class="tag tag-feature">New</span>
+            <span class="version-badge tag tag-version">
+      v2.0.0
+      <div class="tooltip">
+        npm install @agentchat/core@2.0.0<br>
+        npm install @agentchat/angular@2.0.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@2.0.0 @agentchat/angular@2.0.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • Breaking changes including **core**: Complete API redesign with new method signatures<br>• 4 features including **performance**: 300% faster response times with new caching layer
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-02-17" class="text-xl font-semibold tracking-tight text-gray-800">February 17, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-feature">Update</span>
+            <span class="version-badge tag tag-version">
+      v1.5.0
+      <div class="tooltip">
+        npm install @agentchat/core@1.5.0<br>
+        npm install @agentchat/angular@1.5.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@1.5.0 @agentchat/angular@1.5.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 4 features including **i18n**: Multi-language support with 15 new languages (Spanish, French, German, Italian, Portuguese, Dutch, Russian, Japanese, Korean, Chinese, Arabic, Hindi, Swedish, Norwegian, Danish)<br>• 3 improvements including **performance**: 50% faster initial load times
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-02-10" class="text-xl font-semibold tracking-tight text-gray-800">February 10, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-security">Security</span>
+            <span class="version-badge tag tag-version">
+      v1.4.2
+      <div class="tooltip">
+        npm install @agentchat/core@1.4.2<br>
+        npm install @agentchat/angular@1.4.2
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@1.4.2 @agentchat/angular@1.4.2', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 3 security including **auth**: Fixed critical security vulnerability in authentication handling
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-01-28" class="text-xl font-semibold tracking-tight text-gray-800">January 28, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-fix">Fix</span>
+            <span class="tag tag-feature">Update</span>
+            <span class="version-badge tag tag-version">
+      v1.4.1
+      <div class="tooltip">
+        npm install @agentchat/core@1.4.1<br>
+        npm install @agentchat/angular@1.4.1
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@1.4.1 @agentchat/angular@1.4.1', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 4 fixes including **chat**: Fixed message ordering issue in high-traffic scenarios<br>• 2 improvements including **error-handling**: Better error messages and recovery mechanisms
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2025-01-15" class="text-xl font-semibold tracking-tight text-gray-800">January 15, 2025</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-feature">Update</span>
+            <span class="version-badge tag tag-version">
+      v1.4.0
+      <div class="tooltip">
+        npm install @agentchat/core@1.4.0<br>
+        npm install @agentchat/angular@1.4.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@1.4.0 @agentchat/angular@1.4.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 3 features including **webhooks**: Real-time webhook support for external integrations<br>• 2 improvements including **search**: Improved chat history search with filters
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2024-12-20" class="text-xl font-semibold tracking-tight text-gray-800">December 20, 2024</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-feature">Update</span>
+            <span class="version-badge tag tag-version">
+      v1.3.0
+      <div class="tooltip">
+        npm install @agentchat/core@1.3.0<br>
+        npm install @agentchat/angular@1.3.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@1.3.0 @agentchat/angular@1.3.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 3 features including **voice**: Voice input and text-to-speech capabilities<br>• 2 improvements including **ux**: Enhanced user experience with smoother animations
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2024-12-05" class="text-xl font-semibold tracking-tight text-gray-800">December 5, 2024</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-fix">Fix</span>
+            <span class="version-badge tag tag-version">
+      v1.2.0
+      <div class="tooltip">
+        npm install @agentchat/core@1.2.0<br>
+        npm install @agentchat/angular@1.2.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@1.2.0 @agentchat/angular@1.2.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 3 features including **rooms**: Multi-room chat support with room management<br>• 2 fixes including **connection**: Fixed intermittent connection drops
+          </p>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+          <time datetime="2024-11-20" class="text-xl font-semibold tracking-tight text-gray-800">November 20, 2024</time>
+        </h3>
+        <div class="w-full space-y-3 md:w-2/3">
+          <div class="flex items-center flex-wrap gap-2">
+            <span class="tag tag-feature">New</span>
+            <span class="tag tag-feature">Update</span>
+            <span class="version-badge tag tag-version">
+      v1.1.0
+      <div class="tooltip">
+        npm install @agentchat/core@1.1.0<br>
+        npm install @agentchat/angular@1.1.0
+        <span class="copy-btn" onclick="copyToClipboard('npm install @agentchat/core@1.1.0 @agentchat/angular@1.1.0', this)">copy</span>
+      </div>
+    </span>
+          </div>
+          <p class="text-gray-700">
+            • 3 features including **emoji**: Rich emoji support with custom emoji packs<br>• 2 improvements including **startup**: 40% faster application startup time
+          </p>
+        </div>
+      </li>
+      <!-- END_RELEASES -->
+    </ul>
+  </section>
+
+  <script>
+    function copyToClipboard(text, buttonElement) {
+      navigator.clipboard.writeText(text).then(function() {
+        // Show visual feedback
+        buttonElement.textContent = 'copied!';
+        buttonElement.classList.add('copied');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          buttonElement.textContent = 'copy';
+          buttonElement.classList.remove('copied');
+        }, 2000);
+        
+        console.log('Copied to clipboard:', text);
+      }, function(err) {
+        console.error('Could not copy text: ', err);
+        // Show error feedback
+        buttonElement.textContent = 'error';
+        setTimeout(() => {
+          buttonElement.textContent = 'copy';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html> 
