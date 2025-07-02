@@ -1,5 +1,5 @@
 {
-  "name": "changelog-pro",
+  "name": "@varsha.ryali/changelog-pro",
   "version": "1.0.0",
   "description": "Professional changelog generator and processor with badge support, HTML rendering, and CLI tools",
   "main": "index.js",
@@ -35,12 +35,15 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/changelog-pro/changelog-pro.git"
+    "url": "https://github.com/varsha.ryali/changelog-pro.git"
   },
   "bugs": {
-    "url": "https://github.com/changelog-pro/changelog-pro/issues"
+    "url": "https://github.com/varsha.ryali/changelog-pro/issues"
   },
-  "homepage": "https://github.com/changelog-pro/changelog-pro#readme",
+  "homepage": "https://github.com/varsha.ryali/changelog-pro#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
