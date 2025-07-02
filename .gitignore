@@ -114,7 +114,6 @@ public
 .pnp.*
 
 # Project specific
-changelog.html
 .preview-temp.html
 test-output/
 docs/build/
