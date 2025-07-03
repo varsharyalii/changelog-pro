@@ -1,327 +1,636 @@
 <!doctype html>
 <html lang="en" class="font-sans">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>changelog-pro</title>
-  <meta name="description" content="Changelog for changelog-pro">
-  <meta name="author" content="Changelog Pro Team">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Version tag hover tooltip */
-    .version-tag {
-      position: relative;
-    }
-    
-    .version-tooltip {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #9ca3af;
-      color: white;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      margin-bottom: 8px;
-      font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .version-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 5px solid transparent;
-      border-top-color: #9ca3af;
-    }
-    
-    .version-tag:hover .version-tooltip {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .copy-btn {
-      background: #374151;
-      color: white;
-      border: none;
-      padding: 4px 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-    
-    .copy-btn:hover {
-      background: #4b5563;
-    }
-    
-    .copy-btn.copied {
-      background: #10b981;
-      color: white;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>changelog-pro</title>
+    <meta name="description" content="Changelog for changelog-pro" />
+    <meta name="author" content="Changelog Pro Team" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Version tag hover tooltip */
+      .version-tag {
+        position: relative;
+      }
 
-<body>
-  <section class="w-full max-w-5xl px-2 py-6 md:py-12 mx-auto text-center">
-    <h1 class="text-3xl font-bold">
-      Changelog
-    </h1>
+      .version-tooltip {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #9ca3af;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.2s ease,
+          visibility 0.2s ease;
+        margin-bottom: 8px;
+        font-family: "Monaco", "Menlo", "Courier New", monospace;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-    <p class="mt-3 text-xl text-gray-600 md:text-2xl">
-      Find all the new features, improvements and bugfixes here.
-    </p>
-  </section>
+      .version-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: #9ca3af;
+      }
 
-  <section class="px-2 py-12 md:mt-12 bg-gradient-to-b from-gray-50 to-white">
-    <ul class="relative w-full max-w-5xl mx-auto">
-      <span class="absolute bottom-0 left-0 hidden w-1 rounded bg-gray-200/60 top-3 translate-x-2 md:block" aria-hidden="true"></span>
+      .version-tag:hover .version-tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
 
-      <!-- START_RELEASES -->
-      <li class="flex flex-col items-start md:flex-row">
-        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
-          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+      .copy-btn {
+        background: #374151;
+        color: white;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
 
-          <div class="flex flex-col space-y-2">
-            <div class="flex items-center space-x-2">
-              <div class="version-tag">
-                <span class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors">
-                  v1.3.0
-                  <div class="version-tooltip">
-                    <span>npm install changelog-pro@1.3.0</span>
-                    <button class="copy-btn" onclick="copyToClipboard('npm install changelog-pro@1.3.0', this)">copy</button>
-                  </div>
+      .copy-btn:hover {
+        background: #4b5563;
+      }
+
+      .copy-btn.copied {
+        background: #10b981;
+        color: white;
+      }
+
+      /* Multi-command tooltip styles */
+      .version-tooltip.multi-command {
+        flex-direction: column;
+        white-space: normal;
+        min-width: 200px;
+        padding: 8px;
+      }
+
+      .command-tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #6b7280;
+        padding-bottom: 6px;
+      }
+
+      .command-tab {
+        padding: 4px 8px;
+        background: #6b7280;
+        border-radius: 4px 4px 0 0;
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+      }
+
+      .command-tab:hover {
+        background: #4b5563;
+      }
+
+      .command-tab.active {
+        background: #374151;
+        color: #f3f4f6;
+      }
+
+      .command-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .active-command {
+        flex: 1;
+        word-break: break-all;
+        min-width: 120px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="w-full max-w-5xl px-2 py-6 md:py-12 mx-auto text-center">
+      <h1 class="text-3xl font-bold">Changelog</h1>
+
+      <p class="mt-3 text-xl text-gray-600 md:text-2xl">
+        Find all the new features, improvements and bugfixes here.
+      </p>
+    </section>
+
+    <section class="px-2 py-12 md:mt-12 bg-gradient-to-b from-gray-50 to-white">
+      <ul class="relative w-full max-w-5xl mx-auto">
+        <span
+          class="absolute bottom-0 left-0 hidden w-1 rounded bg-gray-200/60 top-3 translate-x-2 md:block"
+          aria-hidden="true"
+        ></span>
+
+        <!-- START_RELEASES -->
+        <li class="flex flex-col items-start md:flex-row">
+          <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+            <span
+              class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"
+            ></span>
+
+            <div class="flex flex-col space-y-2">
+              <div class="flex items-center space-x-2">
+                <div class="version-tag">
+                  <span
+                    class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors"
+                  >
+                    v1.3.0
+                    <div class="version-tooltip multi-command">
+                      <div class="command-tabs">
+                        <div
+                          class="command-tab active"
+                          onclick="switchTab(this, 'npm install changelog-pro@1.3.0')"
+                        >
+                          install
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --global changelog-pro@1.3.0')"
+                        >
+                          global
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --save-dev changelog-pro@1.3.0')"
+                        >
+                          dev
+                        </div>
+                      </div>
+                      <div class="command-content">
+                        <span class="active-command"
+                          >npm install changelog-pro@1.3.0</span
+                        >
+                        <button
+                          class="copy-btn"
+                          onclick="copyActiveCommand(this)"
+                        >
+                          copy
+                        </button>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+                <span
+                  class="px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full"
+                  >Stable</span
+                >
+              </div>
+              <time
+                datetime="2025-01-03"
+                class="text-xl font-semibold tracking-tight text-gray-800"
+                >January 3, 2025</time
+              >
+            </div>
+          </h3>
+
+          <div class="w-full space-y-6 md:w-2/3">
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-indigo-700 rounded-full bg-gradient-to-br from-indigo-200 to-indigo-100"
+                >
+                  Improvements
                 </span>
               </div>
-              <span class="px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">Stable</span>
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Made `generate` command explicit instead of default action
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Improved CLI help and user experience
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Show helpful guidance when no command provided
+                </li>
+              </ul>
             </div>
-            <time datetime="2025-01-03" class="text-xl font-semibold tracking-tight text-gray-800">January 3, 2025</time>
-          </div>
-        </h3>
 
-        <div class="w-full space-y-6 md:w-2/3">
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-indigo-700 rounded-full bg-gradient-to-br from-indigo-200 to-indigo-100">
-                Improvements
-              </span>
-            </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Made `generate` command explicit instead of default action</li>
-            <li class="text-gray-700 leading-relaxed">Improved CLI help and user experience</li>
-            <li class="text-gray-700 leading-relaxed">Show helpful guidance when no command provided</li>
-            </ul>
-          </div>
-
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-yellow-700 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-100">
-                Bug Fixes
-              </span>
-            </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Repository URLs in package.json</li>
-            <li class="text-gray-700 leading-relaxed">Confusing default CLI behavior</li>
-            </ul>
-          </div>
-        </div>
-      </li>
-
-      <li class="flex flex-col items-start mt-20 md:flex-row">
-        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
-          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
-
-          <div class="flex flex-col space-y-2">
-            <div class="flex items-center space-x-2">
-              <div class="version-tag">
-                <span class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors">
-                  v1.2.0
-                  <div class="version-tooltip">
-                    <span>npm install changelog-pro@1.2.0</span>
-                    <button class="copy-btn" onclick="copyToClipboard('npm install changelog-pro@1.2.0', this)">copy</button>
-                  </div>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-yellow-700 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-100"
+                >
+                  Bug Fixes
                 </span>
               </div>
-              
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Repository URLs in package.json
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Confusing default CLI behavior
+                </li>
+              </ul>
             </div>
-            <time datetime="2025-01-02" class="text-xl font-semibold tracking-tight text-gray-800">January 2, 2025</time>
           </div>
-        </h3>
+        </li>
 
-        <div class="w-full space-y-6 md:w-2/3">
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-green-700 rounded-full bg-gradient-to-br from-green-200 to-green-100">
-                New Features
-              </span>
+        <li class="flex flex-col items-start mt-20 md:flex-row">
+          <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+            <span
+              class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"
+            ></span>
+
+            <div class="flex flex-col space-y-2">
+              <div class="flex items-center space-x-2">
+                <div class="version-tag">
+                  <span
+                    class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors"
+                  >
+                    v1.2.0
+                    <div class="version-tooltip multi-command">
+                      <div class="command-tabs">
+                        <div
+                          class="command-tab active"
+                          onclick="switchTab(this, 'npm install changelog-pro@1.2.0')"
+                        >
+                          install
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --global changelog-pro@1.2.0')"
+                        >
+                          global
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --save-dev changelog-pro@1.2.0')"
+                        >
+                          dev
+                        </div>
+                      </div>
+                      <div class="command-content">
+                        <span class="active-command"
+                          >npm install changelog-pro@1.2.0</span
+                        >
+                        <button
+                          class="copy-btn"
+                          onclick="copyActiveCommand(this)"
+                        >
+                          copy
+                        </button>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <time
+                datetime="2025-01-02"
+                class="text-xl font-semibold tracking-tight text-gray-800"
+                >January 2, 2025</time
+              >
             </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Interactive version tags with copy-to-clipboard functionality</li>
-            <li class="text-gray-700 leading-relaxed">Hover tooltips showing npm install commands</li>
-            <li class="text-gray-700 leading-relaxed">Stable release tags for production versions</li>
-            </ul>
-          </div>
+          </h3>
 
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-indigo-700 rounded-full bg-gradient-to-br from-indigo-200 to-indigo-100">
-                Improvements
-              </span>
-            </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Enhanced timeline design with better spacing</li>
-            <li class="text-gray-700 leading-relaxed">Improved color scheme for section badges</li>
-            </ul>
-          </div>
-
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-yellow-700 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-100">
-                Bug Fixes
-              </span>
-            </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Bug fix color scheme (yellow instead of red)</li>
-            <li class="text-gray-700 leading-relaxed">Template loading and file path issues</li>
-            </ul>
-          </div>
-        </div>
-      </li>
-
-      <li class="flex flex-col items-start mt-20 md:flex-row">
-        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
-          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
-
-          <div class="flex flex-col space-y-2">
-            <div class="flex items-center space-x-2">
-              <div class="version-tag">
-                <span class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors">
-                  v1.1.0
-                  <div class="version-tooltip">
-                    <span>npm install changelog-pro@1.1.0</span>
-                    <button class="copy-btn" onclick="copyToClipboard('npm install changelog-pro@1.1.0', this)">copy</button>
-                  </div>
+          <div class="w-full space-y-6 md:w-2/3">
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-green-700 rounded-full bg-gradient-to-br from-green-200 to-green-100"
+                >
+                  New Features
                 </span>
               </div>
-              
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Interactive version tags with copy-to-clipboard functionality
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Hover tooltips showing npm install commands
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Stable release tags for production versions
+                </li>
+              </ul>
             </div>
-            <time datetime="2025-01-02" class="text-xl font-semibold tracking-tight text-gray-800">January 2, 2025</time>
-          </div>
-        </h3>
 
-        <div class="w-full space-y-6 md:w-2/3">
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-green-700 rounded-full bg-gradient-to-br from-green-200 to-green-100">
-                New Features
-              </span>
-            </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Professional timeline design with gradient badges</li>
-            <li class="text-gray-700 leading-relaxed">Live preview server with hot reloading</li>
-            <li class="text-gray-700 leading-relaxed">Section grouping to avoid duplicate labels</li>
-            </ul>
-          </div>
-
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-yellow-700 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-100">
-                Bug Fixes
-              </span>
-            </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Resolved URL.parse() deprecation warnings</li>
-            <li class="text-gray-700 leading-relaxed">Template variable replacement issues</li>
-            </ul>
-          </div>
-        </div>
-      </li>
-
-      <li class="flex flex-col items-start mt-20 md:flex-row">
-        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
-          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
-
-          <div class="flex flex-col space-y-2">
-            <div class="flex items-center space-x-2">
-              <div class="version-tag">
-                <span class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors">
-                  v1.0.0
-                  <div class="version-tooltip">
-                    <span>npm install changelog-pro@1.0.0</span>
-                    <button class="copy-btn" onclick="copyToClipboard('npm install changelog-pro@1.0.0', this)">copy</button>
-                  </div>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-indigo-700 rounded-full bg-gradient-to-br from-indigo-200 to-indigo-100"
+                >
+                  Improvements
                 </span>
               </div>
-              
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Enhanced timeline design with better spacing
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Improved color scheme for section badges
+                </li>
+              </ul>
             </div>
-            <time datetime="2025-01-02" class="text-xl font-semibold tracking-tight text-gray-800">January 2, 2025</time>
-          </div>
-        </h3>
 
-        <div class="w-full space-y-6 md:w-2/3">
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-green-700 rounded-full bg-gradient-to-br from-green-200 to-green-100">
-                New Features
-              </span>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-yellow-700 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-100"
+                >
+                  Bug Fixes
+                </span>
+              </div>
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Bug fix color scheme (yellow instead of red)
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Template loading and file path issues
+                </li>
+              </ul>
             </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Beautiful HTML changelog generation from markdown</li>
-            <li class="text-gray-700 leading-relaxed">CLI commands: generate, init, preview, stats</li>
-            <li class="text-gray-700 leading-relaxed">Support for semantic versioning</li>
-            <li class="text-gray-700 leading-relaxed">Responsive design with mobile support</li>
-            </ul>
           </div>
+        </li>
 
-          <div class="space-y-3">
-            <div class="flex items-center space-x-3">
-              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-orange-700 rounded-full bg-gradient-to-br from-orange-200 to-orange-100">
-                Security Updates
-              </span>
+        <li class="flex flex-col items-start mt-20 md:flex-row">
+          <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+            <span
+              class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"
+            ></span>
+
+            <div class="flex flex-col space-y-2">
+              <div class="flex items-center space-x-2">
+                <div class="version-tag">
+                  <span
+                    class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors"
+                  >
+                    v1.1.0
+                    <div class="version-tooltip multi-command">
+                      <div class="command-tabs">
+                        <div
+                          class="command-tab active"
+                          onclick="switchTab(this, 'npm install changelog-pro@1.1.0')"
+                        >
+                          install
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --global changelog-pro@1.1.0')"
+                        >
+                          global
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --save-dev changelog-pro@1.1.0')"
+                        >
+                          dev
+                        </div>
+                      </div>
+                      <div class="command-content">
+                        <span class="active-command"
+                          >npm install changelog-pro@1.1.0</span
+                        >
+                        <button
+                          class="copy-btn"
+                          onclick="copyActiveCommand(this)"
+                        >
+                          copy
+                        </button>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <time
+                datetime="2025-01-02"
+                class="text-xl font-semibold tracking-tight text-gray-800"
+                >January 2, 2025</time
+              >
             </div>
-            <ul class="space-y-2 ml-6">
-            <li class="text-gray-700 leading-relaxed">Input validation for markdown parsing</li>
-            <li class="text-gray-700 leading-relaxed">Safe HTML generation</li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <!-- END_RELEASES -->
-    </ul>
-  </section>
+          </h3>
 
-  <script>
-    function copyToClipboard(text, buttonElement) {
-      navigator.clipboard.writeText(text).then(function() {
-        // Show visual feedback
-        buttonElement.textContent = 'copied!';
-        buttonElement.classList.add('copied');
-        
-        // Reset after 2 seconds
-        setTimeout(() => {
-          buttonElement.textContent = 'copy';
-          buttonElement.classList.remove('copied');
-        }, 2000);
-      }, function(err) {
-        console.error('Could not copy text: ', err);
-        // Show error feedback
-        buttonElement.textContent = 'error';
-        setTimeout(() => {
-          buttonElement.textContent = 'copy';
-        }, 2000);
-      });
-    }
-  </script>
-</body>
-</html> 
+          <div class="w-full space-y-6 md:w-2/3">
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-green-700 rounded-full bg-gradient-to-br from-green-200 to-green-100"
+                >
+                  New Features
+                </span>
+              </div>
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Professional timeline design with gradient badges
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Live preview server with hot reloading
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Section grouping to avoid duplicate labels
+                </li>
+              </ul>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-yellow-700 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-100"
+                >
+                  Bug Fixes
+                </span>
+              </div>
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Resolved URL.parse() deprecation warnings
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Template variable replacement issues
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="flex flex-col items-start mt-20 md:flex-row">
+          <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+            <span
+              class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"
+            ></span>
+
+            <div class="flex flex-col space-y-2">
+              <div class="flex items-center space-x-2">
+                <div class="version-tag">
+                  <span
+                    class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors"
+                  >
+                    v1.0.0
+                    <div class="version-tooltip multi-command">
+                      <div class="command-tabs">
+                        <div
+                          class="command-tab active"
+                          onclick="switchTab(this, 'npm install changelog-pro@1.0.0')"
+                        >
+                          install
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --global changelog-pro@1.0.0')"
+                        >
+                          global
+                        </div>
+                        <div
+                          class="command-tab"
+                          onclick="switchTab(this, 'npm install --save-dev changelog-pro@1.0.0')"
+                        >
+                          dev
+                        </div>
+                      </div>
+                      <div class="command-content">
+                        <span class="active-command"
+                          >npm install changelog-pro@1.0.0</span
+                        >
+                        <button
+                          class="copy-btn"
+                          onclick="copyActiveCommand(this)"
+                        >
+                          copy
+                        </button>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <time
+                datetime="2025-01-02"
+                class="text-xl font-semibold tracking-tight text-gray-800"
+                >January 2, 2025</time
+              >
+            </div>
+          </h3>
+
+          <div class="w-full space-y-6 md:w-2/3">
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-green-700 rounded-full bg-gradient-to-br from-green-200 to-green-100"
+                >
+                  New Features
+                </span>
+              </div>
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Beautiful HTML changelog generation from markdown
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  CLI commands: generate, init, preview, stats
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Support for semantic versioning
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Responsive design with mobile support
+                </li>
+              </ul>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <span
+                  class="inline-block px-3 py-1 text-sm font-medium leading-none text-orange-700 rounded-full bg-gradient-to-br from-orange-200 to-orange-100"
+                >
+                  Security Updates
+                </span>
+              </div>
+              <ul class="space-y-2 ml-6">
+                <li class="text-gray-700 leading-relaxed">
+                  Input validation for markdown parsing
+                </li>
+                <li class="text-gray-700 leading-relaxed">
+                  Safe HTML generation
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <!-- END_RELEASES -->
+      </ul>
+    </section>
+
+    <script>
+      function copyToClipboard(text, buttonElement) {
+        navigator.clipboard.writeText(text).then(
+          function () {
+            // Show visual feedback
+            buttonElement.textContent = "copied!";
+            buttonElement.classList.add("copied");
+
+            // Reset after 2 seconds
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+              buttonElement.classList.remove("copied");
+            }, 2000);
+          },
+          function (err) {
+            console.error("Could not copy text: ", err);
+            // Show error feedback
+            buttonElement.textContent = "error";
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+            }, 2000);
+          },
+        );
+      }
+
+      function switchTab(tabElement, command) {
+        // Update active tab
+        const allTabs =
+          tabElement.parentElement.querySelectorAll(".command-tab");
+        allTabs.forEach((tab) => tab.classList.remove("active"));
+        tabElement.classList.add("active");
+
+        // Update active command
+        const tooltip = tabElement.closest(".version-tooltip");
+        const activeCommand = tooltip.querySelector(".active-command");
+        activeCommand.textContent = command;
+      }
+
+      function copyActiveCommand(buttonElement) {
+        const tooltip = buttonElement.closest(".version-tooltip");
+        const activeCommand = tooltip.querySelector(".active-command");
+        const text = activeCommand.textContent;
+
+        navigator.clipboard.writeText(text).then(
+          function () {
+            // Show visual feedback
+            buttonElement.textContent = "copied!";
+            buttonElement.classList.add("copied");
+
+            // Reset after 2 seconds
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+              buttonElement.classList.remove("copied");
+            }, 2000);
+          },
+          function (err) {
+            console.error("Could not copy text: ", err);
+            // Show error feedback
+            buttonElement.textContent = "error";
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+            }, 2000);
+          },
+        );
+      }
+    </script>
+  </body>
+</html>

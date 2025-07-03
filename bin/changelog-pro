@@ -5,60 +5,95 @@
  * Professional thin CLI that delegates to command modules
  */
 
-const { program } = require('commander');
-const pkg = require('../package.json');
+const { program } = require("commander");
+const pkg = require("../package.json");
 
 // Import command modules
-const generateCommand = require('./cli/commands/generate');
-const initCommand = require('./cli/commands/init');
-const previewCommand = require('./cli/commands/preview');
-const statsCommand = require('./cli/commands/stats');
+const generateCommand = require("./cli/commands/generate");
+const initCommand = require("./cli/commands/init");
+const previewCommand = require("./cli/commands/preview");
+const statsCommand = require("./cli/commands/stats");
 
 // Configure main program
 program
-  .name('changelog-pro')
-  .description('Professional changelog generator and processor')
+  .name("changelog-pro")
+  .description("Professional changelog generator and processor")
   .version(pkg.version);
 
 // Register commands
 program
-  .command('generate')
-  .description('Generate HTML from markdown changelog')
-  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
-  .option('-o, --output <file>', 'Output HTML file', 'changelog.html')
-  .option('--init', 'Create default files if missing')
-  .option('-v, --verbose', 'Show detailed output')
-  .action(generateCommand);
+  .command("generate")
+  .description("Generate HTML from markdown changelog")
+  .option("-i, --input <file>", "Input markdown file", "CHANGELOG.md")
+  .option("-o, --output <file>", "Output HTML file", "changelog.html")
+  .option(
+    "--install-command <command>",
+    "Install command for tooltips (use {version} placeholder)",
+  )
+  .option("-v, --verbose", "Show detailed output")
+  .action(async (options) => {
+    try {
+      await generateCommand(options);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+      process.exit(1);
+    }
+  });
 
 program
-  .command('init')
-  .description('Initialize project with sample changelog')
-  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
-  .option('-o, --output <file>', 'Output HTML file', 'changelog.html')
-  .option('--force', 'Overwrite existing files')
-  .action(initCommand);
+  .command("init")
+  .description("Initialize project with sample changelog")
+  .option("-i, --input <file>", "Input markdown file", "CHANGELOG.md")
+  .option("-o, --output <file>", "Output HTML file", "changelog.html")
+  .option("--force", "Overwrite existing files")
+  .action(async (options) => {
+    try {
+      await initCommand(options);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+      process.exit(1);
+    }
+  });
 
 program
-  .command('preview')
-  .description('Start live preview server')
-  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
-  .option('-p, --port <number>', 'Server port', '3000')
-  .action(previewCommand);
+  .command("preview")
+  .description("Start live preview server")
+  .option("-i, --input <file>", "Input markdown file", "CHANGELOG.md")
+  .option("-p, --port <number>", "Server port", "3000")
+  .option(
+    "--install-command <command>",
+    "Install command for tooltips (use {version} placeholder)",
+  )
+  .action(async (options) => {
+    try {
+      await previewCommand(options);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+      process.exit(1);
+    }
+  });
 
 program
-  .command('stats')
-  .description('Show changelog statistics')
-  .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
-  .action(statsCommand);
+  .command("stats")
+  .description("Show changelog statistics")
+  .option("-i, --input <file>", "Input markdown file", "CHANGELOG.md")
+  .action(async (options) => {
+    try {
+      await statsCommand(options);
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+      process.exit(1);
+    }
+  });
 
 // Show help when no command is provided
 program.action(() => {
   program.help();
 });
 
-// Global error handler
-process.on('unhandledRejection', (error) => {
-  console.error('💥 Unhandled error:', error.message);
+// Global error handler for unhandled rejections
+process.on("unhandledRejection", (error) => {
+  console.error("💥 Unhandled error:", error.message);
   if (process.env.DEBUG) {
     console.error(error.stack);
   }
@@ -66,4 +101,10 @@ process.on('unhandledRejection', (error) => {
 });
 
 // Parse and execute
-program.parse(); 
+program.parseAsync(process.argv).catch((error) => {
+  console.error("💥 Fatal error:", error.message);
+  if (process.env.DEBUG) {
+    console.error(error.stack);
+  }
+  process.exit(1);
+});

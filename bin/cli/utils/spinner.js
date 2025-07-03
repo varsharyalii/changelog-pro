@@ -7,23 +7,23 @@
  * Simple spinner for CLI feedback
  */
 class Spinner {
-  constructor(text = 'Loading...') {
+  constructor(text = "Loading...") {
     this.text = text;
     this.isSpinning = false;
     this.interval = null;
-    this.frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+    this.frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
     this.frameIndex = 0;
   }
 
   start() {
     if (this.isSpinning) return;
-    
+
     this.isSpinning = true;
     this.frameIndex = 0;
-    
+
     // Hide cursor
-    process.stdout.write('\x1B[?25l');
-    
+    process.stdout.write("\x1B[?25l");
+
     this.interval = setInterval(() => {
       const frame = this.frames[this.frameIndex];
       process.stdout.write(`\r${frame} ${this.text}`);
@@ -45,16 +45,16 @@ class Spinner {
 
   stop() {
     if (!this.isSpinning) return;
-    
+
     this.isSpinning = false;
-    
+
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = null;
     }
-    
+
     // Clear line and show cursor
-    process.stdout.write('\r\x1B[K\x1B[?25h');
+    process.stdout.write("\r\x1B[K\x1B[?25h");
   }
 
   setText(text) {
@@ -73,5 +73,5 @@ function createSpinner(text) {
 
 module.exports = {
   Spinner,
-  createSpinner
-}; 
+  createSpinner,
+};

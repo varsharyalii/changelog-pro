@@ -1,43 +1,51 @@
 /**
  * Stats Command
- * Professional changelog statistics display
+ * Handles the 'stats' command for showing changelog statistics
  */
-
-const { ChangelogService } = require('../../../lib/changelog-service');
-const { ChangelogError } = require('../utils/errors');
+const ChangelogGenerator = require("../../..");
 
 /**
- * Show changelog statistics
- * @param {Object} options - Command options
- * @param {string} options.input - Input markdown file
+ * Execute stats command
+ * @param {Object} options - Command options from Commander
  */
 async function statsCommand(options) {
+  const generator = new ChangelogGenerator({ verbose: true });
+
   try {
-    const service = new ChangelogService({
-      config: {
-        changelogFile: options.input || 'CHANGELOG.md'
-      }
+    console.log("📊 Analyzing changelog...");
+    
+    const result = await generator.generate({
+      input: options.input,
+      dryRun: true, // Don't generate HTML, just parse and analyze
     });
 
-    const stats = await service.getStatistics();
-
-    console.log('📊 Changelog Statistics:');
-    console.log(`   Total releases: ${stats.totalReleases}`);
-    console.log(`   Latest version: ${stats.latestVersion || 'N/A'}`);
-    console.log(`   Oldest version: ${stats.oldestVersion || 'N/A'}`);
-    
-    if (stats.sectionCounts && Object.keys(stats.sectionCounts).length > 0) {
-      console.log('   Section counts:');
-      for (const [section, count] of Object.entries(stats.sectionCounts)) {
-        console.log(`     ${section}: ${count}`);
+    if (result.success) {
+      const { stats, releases } = result;
+      
+      // Count sections across all releases
+      const sectionCounts = {};
+      for (const release of releases) {
+        for (const [section, items] of Object.entries(release.sections)) {
+          sectionCounts[section] = (sectionCounts[section] || 0) + items.length;
+        }
       }
-    } else {
-      console.log('   No section data available');
+
+      console.log("\n📈 Changelog Statistics");
+      console.log("-------------------");
+      console.log(`Total Releases: ${stats.totalReleases}`);
+      console.log(`Latest Version: ${releases[0]?.version || "none"}`);
+      console.log(`First Version: ${releases[releases.length - 1]?.version || "none"}`);
+      
+      console.log("\n📝 Section Counts");
+      console.log("-------------------");
+      for (const [section, count] of Object.entries(sectionCounts)) {
+        console.log(`${section}: ${count} entries`);
+      }
     }
-    
   } catch (error) {
-    throw new ChangelogError(`Failed to get statistics: ${error.message}`, 'STATS_ERROR', error);
+    console.error("❌ Failed to analyze changelog:", error.message);
+    process.exit(1);
   }
 }
 
-module.exports = statsCommand; 
+module.exports = statsCommand;

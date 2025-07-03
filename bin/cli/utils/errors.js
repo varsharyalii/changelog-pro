@@ -7,12 +7,12 @@
  * Base error class for changelog-related errors
  */
 class ChangelogError extends Error {
-  constructor(message, code = 'UNKNOWN_ERROR', originalError = null) {
+  constructor(message, code = "UNKNOWN_ERROR", originalError = null) {
     super(message);
-    this.name = 'ChangelogError';
+    this.name = "ChangelogError";
     this.code = code;
     this.originalError = originalError;
-    
+
     // Maintain proper stack trace (V8)
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ChangelogError);
@@ -24,18 +24,18 @@ class ChangelogError extends Error {
    */
   getUserMessage() {
     switch (this.code) {
-      case 'FILE_NOT_FOUND':
+      case "FILE_NOT_FOUND":
         return `${this.message}\n💡 Run "changelog-pro init" to create a sample changelog`;
-      
-      case 'VALIDATION_ERROR':
+
+      case "VALIDATION_ERROR":
         return `${this.message}\n💡 Use --init to create default files`;
-      
-      case 'SERVER_ERROR':
+
+      case "SERVER_ERROR":
         return `${this.message}\n💡 Try a different port with --port <number>`;
-      
-      case 'PERMISSION_ERROR':
+
+      case "PERMISSION_ERROR":
         return `${this.message}\n💡 Check file permissions or run with appropriate privileges`;
-      
+
       default:
         return this.message;
     }
@@ -46,13 +46,13 @@ class ChangelogError extends Error {
    */
   getExitCode() {
     switch (this.code) {
-      case 'FILE_NOT_FOUND':
+      case "FILE_NOT_FOUND":
         return 2;
-      case 'VALIDATION_ERROR':
+      case "VALIDATION_ERROR":
         return 3;
-      case 'SERVER_ERROR':
+      case "SERVER_ERROR":
         return 4;
-      case 'PERMISSION_ERROR':
+      case "PERMISSION_ERROR":
         return 5;
       default:
         return 1;
@@ -65,7 +65,7 @@ class ChangelogError extends Error {
  */
 class FileError extends ChangelogError {
   constructor(message, filePath, originalError = null) {
-    super(message, 'FILE_ERROR', originalError);
+    super(message, "FILE_ERROR", originalError);
     this.filePath = filePath;
   }
 }
@@ -75,7 +75,7 @@ class FileError extends ChangelogError {
  */
 class ServerError extends ChangelogError {
   constructor(message, port = null, originalError = null) {
-    super(message, 'SERVER_ERROR', originalError);
+    super(message, "SERVER_ERROR", originalError);
     this.port = port;
   }
 }
@@ -85,7 +85,7 @@ class ServerError extends ChangelogError {
  */
 class ValidationError extends ChangelogError {
   constructor(message, field = null, originalError = null) {
-    super(message, 'VALIDATION_ERROR', originalError);
+    super(message, "VALIDATION_ERROR", originalError);
     this.field = field;
   }
 }
@@ -94,5 +94,5 @@ module.exports = {
   ChangelogError,
   FileError,
   ServerError,
-  ValidationError
-}; 
+  ValidationError,
+};

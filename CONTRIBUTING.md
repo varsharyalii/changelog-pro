@@ -28,11 +28,13 @@ node bin/changelog-pro --help
 ## 📋 Development Process
 
 ### 1. Before You Start
+
 - Check existing [issues](https://github.com/changelog-pro/changelog-pro/issues) and [pull requests](https://github.com/changelog-pro/changelog-pro/pulls)
 - For major features, open an issue first to discuss the approach
 - For bugs, include reproduction steps and environment details
 
 ### 2. Making Changes
+
 ```bash
 # Create a feature branch
 git checkout -b feature/your-feature-name
@@ -50,6 +52,7 @@ git commit -m "feat: add watch mode for development"
 ```
 
 ### 3. Submitting Changes
+
 - Open a pull request with a clear description
 - Include tests for new functionality
 - Update documentation for user-facing changes
@@ -58,6 +61,7 @@ git commit -m "feat: add watch mode for development"
 ## 🧪 Testing Guidelines
 
 ### Running Tests
+
 ```bash
 npm test              # Run all tests
 npm run test:watch    # Watch mode for development
@@ -65,26 +69,28 @@ npm run test:coverage # Generate coverage report
 ```
 
 ### Test Structure
+
 ```javascript
 // Use descriptive test names
-describe('ReleaseParser', () => {
-  describe('when parsing version headers', () => {
+describe("ReleaseParser", () => {
+  describe("when parsing version headers", () => {
     it('should extract version from "## 1.0.0 (2025-01-01)" format', () => {
       // Arrange
-      const markdown = '## 1.0.0 (2025-01-01)';
-      
+      const markdown = "## 1.0.0 (2025-01-01)";
+
       // Act
       const result = parser.parseVersionHeader(markdown);
-      
+
       // Assert
-      expect(result.version).toBe('1.0.0');
-      expect(result.date).toBe('2025-01-01');
+      expect(result.version).toBe("1.0.0");
+      expect(result.date).toBe("2025-01-01");
     });
   });
 });
 ```
 
 ### Coverage Requirements
+
 - **Minimum 90% coverage** for all new code
 - **100% coverage** for critical parsing logic
 - **Edge cases** must be tested (empty files, malformed input, etc.)
@@ -92,6 +98,7 @@ describe('ReleaseParser', () => {
 ## 📝 Code Standards
 
 ### TypeScript Usage
+
 ```typescript
 // Use strict types, avoid 'any'
 interface ReleaseData {
@@ -113,20 +120,22 @@ export function parseChangelog(markdown: string): ReleaseData[] {
 ```
 
 ### Error Handling
+
 ```javascript
 // Good: User-friendly CLI errors
 throw new CliError(
-  'Parse Error: Invalid version format on line 15',
-  'Expected: ## 1.0.0 (2025-01-01)',
-  'Found: ## Version 1.0.0',
-  'https://changelog-pro.dev/formats#versions'
+  "Parse Error: Invalid version format on line 15",
+  "Expected: ## 1.0.0 (2025-01-01)",
+  "Found: ## Version 1.0.0",
+  "https://changelog-pro.dev/formats#versions",
 );
 
 // Avoid: Technical errors in user output
-throw new Error('Invalid releases data');
+throw new Error("Invalid releases data");
 ```
 
 ### Performance Guidelines
+
 - **CLI startup**: Keep imports lazy-loaded
 - **Large files**: Stream processing for 1000+ entries
 - **Memory usage**: Clean up resources, avoid memory leaks
@@ -135,6 +144,7 @@ throw new Error('Invalid releases data');
 ## 🎨 User Experience Standards
 
 ### CLI Design Principles
+
 ```bash
 # ✅ Good: Simple, memorable commands
 changelog build
@@ -146,17 +156,19 @@ changelog-pro generate-html --input=file.md --output=file.html
 ```
 
 ### Error Message Format
+
 ```bash
 ❌ Parse Error: CHANGELOG.md line 15
    Expected: ## 1.0.0 (2025-01-01)
    Found:    ## Version 1.0.0
-   
+
 💡 Fix: Use semantic version format with date
 📖 Guide: https://changelog-pro.dev/formats#versions
 🔍 Debug: Run with --debug for detailed parsing info
 ```
 
 ### Progress Feedback
+
 ```bash
 🔄 Parsing changelog...
 📋 Found 25 releases
@@ -167,6 +179,7 @@ changelog-pro generate-html --input=file.md --output=file.html
 ## 🛠 Architecture Guidelines
 
 ### Module Organization
+
 ```
 lib/
 ├── parsers/          # Input format parsers
@@ -186,6 +199,7 @@ lib/
 ```
 
 ### Plugin Architecture
+
 ```javascript
 // Plugins should follow this interface
 interface ChangelogPlugin {
@@ -208,27 +222,30 @@ export const customThemePlugin: ChangelogPlugin = {
 ## 📚 Documentation Standards
 
 ### README Updates
+
 When adding features, update the README with:
+
 - **Quick example** of the new functionality
 - **Configuration options** if applicable
 - **Integration examples** for popular workflows
 
 ### JSDoc Comments
-```javascript
+
+````javascript
 /**
  * Generate HTML changelog from markdown source
- * 
+ *
  * @param {Object} options - Configuration options
  * @param {string} options.input - Path to markdown changelog
  * @param {string} options.output - Path for HTML output
  * @param {string} [options.theme='default'] - Theme name
  * @param {Object} [options.customVars] - Template variables
- * 
+ *
  * @returns {Promise<GenerationResult>} Generation statistics and output info
- * 
+ *
  * @throws {FileNotFoundError} When input file doesn't exist
  * @throws {ParseError} When markdown format is invalid
- * 
+ *
  * @example
  * ```javascript
  * const result = await generate({
@@ -239,11 +256,12 @@ When adding features, update the README with:
  * console.log(`Generated ${result.entriesCount} changelog entries`);
  * ```
  */
-```
+````
 
 ## 🎯 Feature Development
 
 ### Phase 1 Priority Features
+
 1. **Configuration System**
    - `changelog.config.js` support
    - Environment variable configuration
@@ -260,32 +278,34 @@ When adding features, update the README with:
    - Comprehensive help system
 
 ### Adding New Themes
+
 ```javascript
 // themes/corporate.js
 export const corporateTheme = {
-  name: 'corporate',
-  template: 'corporate.html',
+  name: "corporate",
+  template: "corporate.html",
   styles: {
-    primaryColor: '#1f2937',
-    accentColor: '#3b82f6',
-    fontFamily: 'Inter, system-ui, sans-serif'
+    primaryColor: "#1f2937",
+    accentColor: "#3b82f6",
+    fontFamily: "Inter, system-ui, sans-serif",
   },
   components: {
-    versionBadge: 'professional',
-    changelogEntry: 'detailed'
-  }
+    versionBadge: "professional",
+    changelogEntry: "detailed",
+  },
 };
 ```
 
 ### Adding New Parsers
+
 ```javascript
 // parsers/conventional-commits.js
 export class ConventionalCommitsParser extends BaseParser {
   parse(commits) {
     return commits
-      .filter(commit => this.isConventional(commit.message))
-      .map(commit => this.parseCommitMessage(commit))
-      .groupBy(change => change.version);
+      .filter((commit) => this.isConventional(commit.message))
+      .map((commit) => this.parseCommitMessage(commit))
+      .groupBy((change) => change.version);
   }
 }
 ```
@@ -293,11 +313,13 @@ export class ConventionalCommitsParser extends BaseParser {
 ## 🔄 Release Process
 
 ### Version Management
+
 - Follow [Semantic Versioning](https://semver.org/)
 - Update CHANGELOG.md with every release
 - Use conventional commit messages for automated versioning
 
 ### Release Checklist
+
 - [ ] All tests passing
 - [ ] Documentation updated
 - [ ] CHANGELOG.md updated
@@ -309,16 +331,19 @@ export class ConventionalCommitsParser extends BaseParser {
 ## 💬 Community
 
 ### Getting Help
+
 - **Questions**: Open a [GitHub Discussion](https://github.com/changelog-pro/changelog-pro/discussions)
 - **Bugs**: Create an [Issue](https://github.com/changelog-pro/changelog-pro/issues)
 - **Ideas**: Start a discussion or RFC issue
 
 ### Code of Conduct
+
 We're committed to providing a welcoming and inspiring community for all. Please read our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## 🏆 Recognition
 
 Contributors who make significant improvements will be:
+
 - Added to the README contributors section
 - Mentioned in release notes
 - Invited to join the core team for ongoing contributors
@@ -327,4 +352,4 @@ Contributors who make significant improvements will be:
 
 **Remember**: We're building the Prettier of changelog tools. Every contribution should make the developer experience better!
 
-Thank you for contributing to Changelog Pro! 🚀 
+Thank you for contributing to Changelog Pro! 🚀

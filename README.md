@@ -69,13 +69,16 @@ Use [Keep a Changelog](https://keepachangelog.com/) format:
 ## [1.2.0] - 2025-01-02
 
 ### Added
+
 - New feature for user authentication
 - Support for multiple output formats
 
 ### Changed
+
 - Improved error handling throughout the application
 
 ### Fixed
+
 - Resolved issue with file parsing on Windows
 ```
 
@@ -84,20 +87,20 @@ Use [Keep a Changelog](https://keepachangelog.com/) format:
 ```javascript
 // changelog-pro.config.js
 module.exports = {
-  input: 'CHANGELOG.md',           // Source file
-  output: 'docs/changelog.html',   // Output file
-  theme: 'professional',           // Theme name
-  title: 'My Project Changelog'    // Page title
+  input: "CHANGELOG.md", // Source file
+  output: "docs/changelog.html", // Output file
+  theme: "professional", // Theme name
+  title: "My Project Changelog", // Page title
 };
 ```
 
 ## API Usage
 
 ```javascript
-const { ChangelogService } = require('changelog-pro');
+const { ChangelogService } = require("changelog-pro");
 
 const service = new ChangelogService();
-const result = await service.generateChangelog('CHANGELOG.md', 'output.html');
+const result = await service.generateChangelog("CHANGELOG.md", "output.html");
 console.log(`Generated ${result.releases.length} releases`);
 ```
 
@@ -113,4 +116,4 @@ npm run lint                                                 # Check code style
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file. 
+MIT License - see [LICENSE](LICENSE) file.

@@ -1,120 +1,217 @@
 <!doctype html>
 <html lang="en" class="font-sans">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{TITLE}}</title>
-  <meta name="description" content="{{DESCRIPTION}}">
-  <meta name="author" content="{{AUTHOR}}">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Version tag hover tooltip */
-    .version-tag {
-      position: relative;
-    }
-    
-    .version-tooltip {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #9ca3af;
-      color: white;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      margin-bottom: 8px;
-      font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .version-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 5px solid transparent;
-      border-top-color: #9ca3af;
-    }
-    
-    .version-tag:hover .version-tooltip {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .copy-btn {
-      background: #374151;
-      color: white;
-      border: none;
-      padding: 4px 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-    
-    .copy-btn:hover {
-      background: #4b5563;
-    }
-    
-    .copy-btn.copied {
-      background: #10b981;
-      color: white;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{TITLE}}</title>
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta name="author" content="{{AUTHOR}}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Version tag hover tooltip */
+      .version-tag {
+        position: relative;
+      }
 
-<body>
-  <section class="w-full max-w-5xl px-2 py-6 md:py-12 mx-auto text-center">
-    <h1 class="text-3xl font-bold">
-      Changelog
-    </h1>
+      .version-tooltip {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #9ca3af;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.2s ease,
+          visibility 0.2s ease;
+        margin-bottom: 8px;
+        font-family: "Monaco", "Menlo", "Courier New", monospace;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-    <p class="mt-3 text-xl text-gray-600 md:text-2xl">
-      Find all the new features, improvements and bugfixes here.
-    </p>
-  </section>
+      .version-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: #9ca3af;
+      }
 
-  <section class="px-2 py-12 md:mt-12 bg-gradient-to-b from-gray-50 to-white">
-    <ul class="relative w-full max-w-5xl mx-auto">
-      <span class="absolute bottom-0 left-0 hidden w-1 rounded bg-gray-200/60 top-3 translate-x-2 md:block" aria-hidden="true"></span>
+      .version-tag:hover .version-tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
 
-      <!-- START_RELEASES -->
-      {{CHANGELOG_CONTENT}}
-      <!-- END_RELEASES -->
-    </ul>
-  </section>
+      .copy-btn {
+        background: #374151;
+        color: white;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
 
-  <script>
-    function copyToClipboard(text, buttonElement) {
-      navigator.clipboard.writeText(text).then(function() {
-        // Show visual feedback
-        buttonElement.textContent = 'copied!';
-        buttonElement.classList.add('copied');
-        
-        // Reset after 2 seconds
-        setTimeout(() => {
-          buttonElement.textContent = 'copy';
-          buttonElement.classList.remove('copied');
-        }, 2000);
-      }, function(err) {
-        console.error('Could not copy text: ', err);
-        // Show error feedback
-        buttonElement.textContent = 'error';
-        setTimeout(() => {
-          buttonElement.textContent = 'copy';
-        }, 2000);
-      });
-    }
-  </script>
-</body>
-</html> 
+      .copy-btn:hover {
+        background: #4b5563;
+      }
+
+      .copy-btn.copied {
+        background: #10b981;
+        color: white;
+      }
+
+      /* Multi-command tooltip styles */
+      .version-tooltip.multi-command {
+        flex-direction: column;
+        white-space: normal;
+        min-width: 200px;
+        padding: 8px;
+      }
+
+      .command-tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #6b7280;
+        padding-bottom: 6px;
+      }
+
+      .command-tab {
+        padding: 4px 8px;
+        background: #6b7280;
+        border-radius: 4px 4px 0 0;
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+      }
+
+      .command-tab:hover {
+        background: #4b5563;
+      }
+
+      .command-tab.active {
+        background: #374151;
+        color: #f3f4f6;
+      }
+
+      .command-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .active-command {
+        flex: 1;
+        word-break: break-all;
+        min-width: 120px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="w-full max-w-5xl px-2 py-6 md:py-12 mx-auto text-center">
+      <h1 class="text-3xl font-bold">Changelog</h1>
+
+      <p class="mt-3 text-xl text-gray-600 md:text-2xl">
+        Find all the new features, improvements and bugfixes here.
+      </p>
+    </section>
+
+    <section class="px-2 py-12 md:mt-12 bg-gradient-to-b from-gray-50 to-white">
+      <ul class="relative w-full max-w-5xl mx-auto">
+        <span
+          class="absolute bottom-0 left-0 hidden w-1 rounded bg-gray-200/60 top-3 translate-x-2 md:block"
+          aria-hidden="true"
+        ></span>
+
+        <!-- START_RELEASES -->
+        {{CHANGELOG_CONTENT}}
+        <!-- END_RELEASES -->
+      </ul>
+    </section>
+
+    <script>
+      function copyToClipboard(text, buttonElement) {
+        navigator.clipboard.writeText(text).then(
+          function () {
+            // Show visual feedback
+            buttonElement.textContent = "copied!";
+            buttonElement.classList.add("copied");
+
+            // Reset after 2 seconds
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+              buttonElement.classList.remove("copied");
+            }, 2000);
+          },
+          function (err) {
+            console.error("Could not copy text: ", err);
+            // Show error feedback
+            buttonElement.textContent = "error";
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+            }, 2000);
+          },
+        );
+      }
+
+      function switchTab(tabElement, command) {
+        // Update active tab
+        const allTabs =
+          tabElement.parentElement.querySelectorAll(".command-tab");
+        allTabs.forEach((tab) => tab.classList.remove("active"));
+        tabElement.classList.add("active");
+
+        // Update active command
+        const tooltip = tabElement.closest(".version-tooltip");
+        const activeCommand = tooltip.querySelector(".active-command");
+        activeCommand.textContent = command;
+      }
+
+      function copyActiveCommand(buttonElement) {
+        const tooltip = buttonElement.closest(".version-tooltip");
+        const activeCommand = tooltip.querySelector(".active-command");
+        const text = activeCommand.textContent;
+
+        navigator.clipboard.writeText(text).then(
+          function () {
+            // Show visual feedback
+            buttonElement.textContent = "copied!";
+            buttonElement.classList.add("copied");
+
+            // Reset after 2 seconds
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+              buttonElement.classList.remove("copied");
+            }, 2000);
+          },
+          function (err) {
+            console.error("Could not copy text: ", err);
+            // Show error feedback
+            buttonElement.textContent = "error";
+            setTimeout(() => {
+              buttonElement.textContent = "copy";
+            }, 2000);
+          },
+        );
+      }
+    </script>
+  </body>
+</html>
