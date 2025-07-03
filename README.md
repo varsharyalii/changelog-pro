@@ -5,7 +5,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/varsharyalii/changelog-pro.svg)](https://github.com/varsharyalii/changelog-pro/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A professional changelog generator that converts markdown changelogs into beautiful HTML with live preview capabilities.
+Generate beautiful HTML changelogs from markdown with zero config. Supports live preview and smart install command labels.
 
 ## 🌟 Live Demo
 
@@ -84,14 +84,65 @@ Use [Keep a Changelog](https://keepachangelog.com/) format:
 
 ## Configuration
 
-```javascript
+```js
 // changelog-pro.config.js
 module.exports = {
-  input: "CHANGELOG.md", // Source file
-  output: "docs/changelog.html", // Output file
-  theme: "professional", // Theme name
-  title: "My Project Changelog", // Page title
+  input: "CHANGELOG.md",
+  output: "changelog.html",
+  installCommand: [
+    "npm install changelog-pro",    // no labels if identical
+    "npm install -g changelog-pro"  // shows "global" label
+  ]
 };
+```
+
+## CI/CD Integration
+
+### Basic Pipeline Usage
+```bash
+# Install globally
+npm install -g changelog-pro
+
+# Generate changelog
+changelog-pro generate -i CHANGELOG.md -o docs/changelog.html
+```
+
+### Programmatic Usage
+```javascript
+const { ChangelogGenerator } = require('changelog-pro');
+
+const generator = new ChangelogGenerator();
+await generator.generate({
+  input: 'CHANGELOG.md',
+  output: 'docs/changelog.html'
+});
+```
+
+### Configuration
+Create `changelog-pro.config.js` in your project root:
+```javascript
+module.exports = {
+  input: "CHANGELOG.md",
+  output: "docs/changelog.html",
+  installCommand: ["npm install my-package@{version}"]
+};
+```
+
+### Exit Codes
+- `0`: Success
+- `1`: Error (file not found, parsing failed, etc.)
+
+### Environment Variables
+- `CHANGELOG_INPUT`: Input file path
+- `CHANGELOG_OUTPUT`: Output file path
+- `CHANGELOG_TEMPLATE`: Template name
+
+### GitHub Actions Example
+```yaml
+- name: Generate Changelog
+  run: |
+    npm install -g changelog-pro
+    changelog-pro generate
 ```
 
 ## API Usage
@@ -112,6 +163,12 @@ cd changelog-pro                                             # Enter directory
 npm install                                                  # Install dependencies
 npm test                                                     # Run tests
 npm run lint                                                 # Check code style
+```
+
+## Release
+
+```bash
+npm version minor  # Bumps version, updates changelog, creates tag
 ```
 
 ## License
