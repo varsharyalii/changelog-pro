@@ -9,11 +9,10 @@ module.exports = {
   // Install command for tooltips (use {version} placeholder)
 
   // MULTIPLE NPM COMMANDS - shows "install", "global", "dev" (same package manager, different options)
-  installCommand: [
-    "npm install changelog-pro@{version}",
-    "npm install --global changelog-pro@{version}",
-    "npm install --save-dev changelog-pro@{version}",
-  ],
+  // installCommand: [
+  //   "npm install @agentchat/core@{version}",
+  //   "npm install @agentchat/angular@{version}"
+  // ]
 
   // DIFFERENT PACKAGE MANAGERS - would show "npm", "yarn", "pip" (different package managers)
   // installCommand: [
@@ -23,11 +22,7 @@ module.exports = {
   // ],
 
   // NAMED COMMANDS - shows custom labels like "Node.js", "Python"
-  // installCommand: {
-  //   'Node.js': 'npm install changelog-pro@{version}',
-  //   'Python': 'pip install changelog-pro=={version}',
-  //   'Rust': 'cargo install changelog-pro --version {version}'
-  // },
+  installCommand: "npm install changelog-pro@{version}"
 
   // SINGLE COMMAND - no tabs, just shows the command
   // installCommand: 'npm install changelog-pro@{version}',
