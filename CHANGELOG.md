@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2025-07-03
+
+### Fixed
+- Named installCommand rendering now displays proper tab labels instead of "INSTALL"
+- Installation commands show actual names (e.g., "core", "angular", "rust") as tabs
+- Improved HTML escaping for installation command tooltips
+
 ## [1.4.1] - 2025-07-03
 
 ### Fixed
