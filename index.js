@@ -1,4 +1,4 @@
-const { ChangelogService } = require("./lib/changelog-service");
+const ChangelogService = require("./lib/changelog-service");
 const ChangelogGenerator = require("./lib/changelog-generator");
 const { ReleaseParser } = require("./lib/release-parser");
 const { DescriptionFormatter } = require("./lib/description-formatter");
@@ -34,13 +34,13 @@ module.exports = {
   // Convenience function for quick usage
   async generate(options = {}) {
     const service = new ChangelogService(options);
-    return await service.processChangelog();
+    return await service.generate(options);
   },
 
   // Get statistics
   async getStats(options = {}) {
     const service = new ChangelogService(options);
-    return await service.getStatistics();
+    return await service.generate(options);
   },
 };
 
