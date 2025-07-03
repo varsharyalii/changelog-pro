@@ -97,6 +97,55 @@
             <div class="flex items-center space-x-2">
               <div class="version-tag">
                 <span class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors">
+                  v1.3.0
+                  <div class="version-tooltip">
+                    <span>npm install changelog-pro@1.3.0</span>
+                    <button class="copy-btn" onclick="copyToClipboard('npm install changelog-pro@1.3.0', this)">copy</button>
+                  </div>
+                </span>
+              </div>
+              <span class="px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">Stable</span>
+            </div>
+            <time datetime="2025-01-03" class="text-xl font-semibold tracking-tight text-gray-800">January 3, 2025</time>
+          </div>
+        </h3>
+
+        <div class="w-full space-y-6 md:w-2/3">
+          <div class="space-y-3">
+            <div class="flex items-center space-x-3">
+              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-indigo-700 rounded-full bg-gradient-to-br from-indigo-200 to-indigo-100">
+                Improvements
+              </span>
+            </div>
+            <ul class="space-y-2 ml-6">
+            <li class="text-gray-700 leading-relaxed">Made `generate` command explicit instead of default action</li>
+            <li class="text-gray-700 leading-relaxed">Improved CLI help and user experience</li>
+            <li class="text-gray-700 leading-relaxed">Show helpful guidance when no command provided</li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-center space-x-3">
+              <span class="inline-block px-3 py-1 text-sm font-medium leading-none text-yellow-700 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-100">
+                Bug Fixes
+              </span>
+            </div>
+            <ul class="space-y-2 ml-6">
+            <li class="text-gray-700 leading-relaxed">Repository URLs in package.json</li>
+            <li class="text-gray-700 leading-relaxed">Confusing default CLI behavior</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li class="flex flex-col items-start mt-20 md:flex-row">
+        <h3 class="flex items-center w-full mb-3 space-x-3 md:w-1/3">
+          <span class="z-10 hidden block w-5 h-5 bg-white border-4 border-gray-300 rounded-full md:block"></span>
+
+          <div class="flex flex-col space-y-2">
+            <div class="flex items-center space-x-2">
+              <div class="version-tag">
+                <span class="px-3 py-1 text-sm font-mono font-semibold text-white bg-gray-900 rounded-full cursor-pointer hover:bg-gray-800 transition-colors">
                   v1.2.0
                   <div class="version-tooltip">
                     <span>npm install changelog-pro@1.2.0</span>
@@ -104,7 +153,7 @@
                   </div>
                 </span>
               </div>
-              <span class="px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">Stable</span>
+              
             </div>
             <time datetime="2025-01-02" class="text-xl font-semibold tracking-tight text-gray-800">January 2, 2025</time>
           </div>

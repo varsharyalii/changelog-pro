@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2025-01-03
+
+### Changed
+- Made `generate` command explicit instead of default action
+- Improved CLI help and user experience
+- Show helpful guidance when no command provided
+
+### Fixed
+- Repository URLs in package.json
+- Confusing default CLI behavior
+
 ## [1.2.0] - 2025-01-02
 
 ### Added
