@@ -27,7 +27,7 @@ npm install -g changelog-pro  # Install globally for CLI usage
 
 ```bash
 changelog-pro init              # Create sample CHANGELOG.md
-changelog-pro                   # Generate changelog.html
+changelog-pro generate          # Generate changelog.html
 changelog-pro preview           # Start live preview server
 ```
 
@@ -35,10 +35,10 @@ changelog-pro preview           # Start live preview server
 
 ```bash
 # Generate HTML from markdown
-changelog-pro
+changelog-pro generate
 
 # Custom input/output files
-changelog-pro -i CHANGES.md -o docs/changelog.html
+changelog-pro generate -i CHANGES.md -o docs/changelog.html
 
 # Initialize new project with sample changelog
 changelog-pro init

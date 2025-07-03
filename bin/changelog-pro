@@ -23,7 +23,7 @@ program
 // Register commands
 program
   .command('generate')
-  .description('Generate HTML from markdown changelog (default)')
+  .description('Generate HTML from markdown changelog')
   .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
   .option('-o, --output <file>', 'Output HTML file', 'changelog.html')
   .option('--init', 'Create default files if missing')
@@ -51,12 +51,10 @@ program
   .option('-i, --input <file>', 'Input markdown file', 'CHANGELOG.md')
   .action(statsCommand);
 
-// Set default command to generate
-program
-  .action(() => {
-    // If no command specified, run generate
-    generateCommand({ input: 'CHANGELOG.md', output: 'changelog.html' });
-  });
+// Show help when no command is provided
+program.action(() => {
+  program.help();
+});
 
 // Global error handler
 process.on('unhandledRejection', (error) => {
