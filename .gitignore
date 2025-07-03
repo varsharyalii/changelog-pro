@@ -137,3 +137,10 @@ Thumbs.db
 # Logs
 logs
 *.log 
+# Local config and generated files
+changelog-pro.config.js
+changelog.html
+test-changelog.md
+*.jpg
+.cursorrules
+TECH_DEBT_FIXES.md
