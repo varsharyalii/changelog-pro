@@ -2,7 +2,7 @@
  * Generate Command
  * Handles the 'generate' command for creating HTML changelogs
  */
-const ChangelogGenerator = require("../../..");
+const { ChangelogGenerator } = require("../../..");
 
 /**
  * Execute generate command

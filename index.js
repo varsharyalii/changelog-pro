@@ -1,4 +1,5 @@
 const { ChangelogService } = require("./lib/changelog-service");
+const ChangelogGenerator = require("./lib/changelog-generator");
 const { ReleaseParser } = require("./lib/release-parser");
 const { DescriptionFormatter } = require("./lib/description-formatter");
 const { TagGenerator } = require("./lib/tag-generator");
@@ -20,6 +21,7 @@ module.exports = {
   // Main API
   ChangelogPro,
   ChangelogService,
+  ChangelogGenerator,
 
   // Core components
   ReleaseParser,
