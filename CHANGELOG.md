@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.4.1] - 2024-07-03
+## [1.4.1] - 2025-07-03
 
 ### Fixed
 - Circular dependency issues between ChangelogService and ChangelogGenerator
@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 - Export/import mismatches causing test failures
 - ConfigLoader instantiation issues
 
-## [1.4.0] - 2024-07-03
+## [1.4.0] - 2025-07-03
 
 ### Added
 - Smart install command labeling based on package manager type
@@ -23,7 +23,7 @@ All notable changes to this project will be documented in this file.
 - Template caching efficiency
 - Circular dependency issues in ChangelogGenerator
 
-## [1.3.0] - 2024-07-02
+## [1.3.0] - 2025-07-03
 
 ### Changed
 - Made `generate` command explicit instead of default action
@@ -34,7 +34,7 @@ All notable changes to this project will be documented in this file.
 - Repository URLs in package.json
 - Confusing default CLI behavior
 
-## [1.2.0] - 2024-07-02
+## [1.2.0] - 2025-07-03
 
 ### Added
 - Interactive version tags with copy-to-clipboard functionality
@@ -49,7 +49,7 @@ All notable changes to this project will be documented in this file.
 - Bug fix color scheme (yellow instead of red)
 - Template loading and file path issues
 
-## [1.1.0] - 2024-07-02
+## [1.1.0] - 2025-07-03
 
 ### Added
 - Professional timeline design with gradient badges
@@ -60,7 +60,7 @@ All notable changes to this project will be documented in this file.
 - Resolved URL.parse() deprecation warnings
 - Template variable replacement issues
 
-## [1.0.0] - 2024-07-02
+## [1.0.0] - 2025-07-03
 
 ### Added
 - Beautiful HTML changelog generation from markdown
